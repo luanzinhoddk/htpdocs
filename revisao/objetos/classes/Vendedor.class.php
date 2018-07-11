@@ -1,5 +1,7 @@
 <?php
 
+require_once 'Pessoa.class.php';
+
 class Vendedor extends Pessoa {
 
     private $matricula;
