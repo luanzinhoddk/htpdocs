@@ -1,6 +1,6 @@
 <?php
 
-class Cliente{
+class Cliente {
 
     private $nome;
     private $cpf;
@@ -18,7 +18,7 @@ class Cliente{
         return $this->cpf;
     }
 
-    public function setCpf(){
+    public function setCpf($cpf){
         $this->cpf = $cpf;
     }
 
