@@ -10,7 +10,7 @@ abstract class ContaInvestimento extends Conta {
         return $this->rendimento;
     }
 
-    public function setRendimento($rendimento) {
+    public function setRendimento($rendimento ) {
         $this->rendimento = $rendimento;
     }
 
@@ -22,4 +22,7 @@ abstract class ContaInvestimento extends Conta {
         }
         return false; 
     }
+
+    public abstract function rende();
+
 }

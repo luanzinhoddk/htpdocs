@@ -2,9 +2,9 @@
 
 require_once "ContaInvestimento.class.php";
 
-class ContaPoupanca extends ContaInvestimento {
+class ContaAcao extends ContaInvestimento {
 
-    private $percentual = 1 / 100; 
+    private $percentual = 10 / 100; 
 
     public function rende(){
         $novoSaldo = parent::getSaldo() * (1 + $this->percentual);
