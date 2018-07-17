@@ -58,4 +58,18 @@ abstract class Conta {
         }
         return false;
     }
+
+    public function __toString() {
+        $resultado = '-';
+        $resultado .= $this->agencia;
+        $resultado .= '|';
+        $resultado .= $this->numero;
+        $resultado .= '|';
+        $resultado .= $this->saldo;
+        $resultado .= '|';
+        $resultado .= $this->cliente->getNome();
+        $resultado .= '|';
+        $resultado .= $this->cliente->getCpf();
+        return $resultado;
+    }
 }
