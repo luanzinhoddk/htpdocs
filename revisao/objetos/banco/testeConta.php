@@ -13,40 +13,32 @@
     $rafael = new Cliente();
     $rafael->setNome('Rafael');
     $rafael->setCpf('087.879.456-89');
+    $rafael->setEmail('Rafaboy@hotmail.com');
 
     $contaRafa = new ContaCorrente();
     $contaRafa->setCliente($rafael);
     $contaRafa->setAgencia("7123");
-    $contaRafa->setNumero("32102-3");
+    $contaRafa->setNumero("59781-5");
     $contaRafa->setSaldo(1000.0);
-    $contaRafa->setLimite(500.0);
+
+    $luan = new Cliente();
+    $luan->setNome('Luan');
+    $luan->setCpf('701.087.594-40');
+    $luan->setEmail('luandk2@hotmail.com');
+    
+    $contaLuan = new ContaCorrente();
+    $contaLuan->setCliente($luan);
+    $contaLuan->setAgencia("7123");
+    $contaLuan->setNumero("32102-3");
+    $contaLuan->setSaldo(1500.0);
+
 
     $banco = new BancoDB();
 
     //$banco->salva($contaRafa);
-    var_dump($banco->listaTodas());
+    //$banco->salva($contaLuan);
 
-    ?>
 
-    <h1><?=ContaCorrente::getQuantidadeContas();?></h1>
-
-    <?php
-
-    $fabiano = new Cliente();
-    $fabiano->setNome("Fabiano");
-    $fabiano->setEmail("fabiano@gmail.com");
-
-    $contaFab = new ContaCorrente();
-    $contaFab->setCliente($fabiano);
-    $contaFab->setAgencia('7848');
-    $contaFab->setNumero('18455-7');
-    $contaFab->setSaldo(500);
-    //$contaFab->rende();
-    ?>  
-    
-    <h1><?=ContaCorrente::getQuantidadeContas();?></h1>
 ?>
-<pre> <?php var_dump($contaRafa); ?> </pre>
+<pre> <?php var_dump($banco->listaTodas()) ?> </pre>
 
-<hr>
-<pre> <?php var_dump($contaFab)?> </pre>
