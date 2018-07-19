@@ -69,8 +69,6 @@ abstract class Conta {
         $resultado .= '|';
         $resultado .= $this->cliente->getNome();
         $resultado .= '|';
-        $resultado .= $this->cliente->getCpf();
-        $resultado .= '|';
         $resultado .= $this->cliente->getEmail();
         $resultado .= chr(10);
         return $resultado;

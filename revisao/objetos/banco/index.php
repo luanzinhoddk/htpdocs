@@ -11,12 +11,13 @@ require_once "classes/BancoDB.class.php";
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Banco Cadastro</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
 </head>
 <body>
     <div class="container">
-        <div class="col-6">
-        <form method="post" action="cadastrar-conta.php">
+        <div class="col-8">
+        <form method="post" action="cadastrar-conta.php">       
             <fieldset>
             <legend>Dados do Cliente</legend>
 
@@ -32,8 +33,7 @@ require_once "classes/BancoDB.class.php";
                 maxlength="14" size="30" 
                 required autofocus autocomplete="off"
                 tabindex="1">
-            </fieldset>
-          <fieldset>
+           
             <legend>Dados da Conta</legend>
             <label for="agencia">Agência:</label>
             <input type="text" class="form-control" id="agencia" name="agencia"                
@@ -52,20 +52,24 @@ require_once "classes/BancoDB.class.php";
             <label for="saldo">Saldo:</label>
             <input type="text" class="form-control" id="saldo" name="saldo" />
             <br />
+           
             </fieldset>
-            <button type="submit" class="btn btn-sucess">Salvar</button>
-            </fieldset>
+            </div>
+            <div class="col-8">
+            <button type="submit" class="btn btn-success col-4">Salvar</button>
+            <button type="submit" class="btn btn-danger col-4">Limpar</button>
+            </div>
+           
     </form>
     <br> </br>
-        </div>
-        <div class="col-6">
-                <table class="table table-stripped">
+        <div class="col-9">
+        <legend>Lista de Contas</legend>
+                <table class="table table-striped table-hover">
 
                 <?php
                     $banco = new BancoDB();
                     $contas = $banco->listaTodas();
                 ?>
-
                     <tr>
                         <th>Agência</th>
                         <th>Conta</th>
@@ -80,6 +84,22 @@ require_once "classes/BancoDB.class.php";
                             <td><?=$conta->getCliente()->getNome();?></td>
                             <td><?=$conta->getCliente()->getCpf();?></td>
                             <td><?=$conta->getSaldo();?></td>
+                            <td>
+                                <form method="post" action="editar-conta.php">
+                                    <input type="hidden" name="conta" value="<?=$conta->getNumero();?>">
+                                         <button type="submit" class="btn btn-primary col">
+                                            <i class="far fa-edit"></i>
+                                        </button>
+                                </form>
+                            </td>
+                            <td>
+                            <form method="post" action="excluir-conta.php">
+                                <input type="hidden" name="conta" value="<?=$conta->getNumero();?>">
+                                    <button type="submit" class="btn btn-danger col">
+                                    <i class="far fa-trash-alt"></i>
+                                     </button>
+                            </form>
+                            </td>
                         </tr>
                     <?php } ?>
                 </table>
