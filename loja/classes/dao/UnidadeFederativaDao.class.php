@@ -3,7 +3,7 @@
 require_once(__DIR__ . "/./Conexao.class.php");
 require_once(__DIR__. "/../modelo/UnidadeFederativa.class.php");
 
-class UnidadeFederativaDao {
+class UnidadeFederativaDAO {
         
     private $conexao;
     
