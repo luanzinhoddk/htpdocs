@@ -1,9 +1,14 @@
 <?php
     require_once(__DIR__ . "/./classes/modelo/UnidadeFederativa.class.php");
     require_once(__DIR__ . "/./classes/dao/UnidadeFederativaDao.class.php");
+    require_once(__DIR__ . "/./classes/modelo/Cidade.class.php");
+    require_once(__DIR__ . "/./classes/dao/CidadeDao.class.php");
 
     $dao = new UnidadeFederativaDao();
     $ufs = $dao->findAll();
+
+    $daocid = new CidadeDao();
+    $cidades = $daocid->findAll();
 ?>
 
 <!DOCTYPE html>
@@ -21,7 +26,7 @@
             <div class="col-12 form-group" id="div_uf"><!--Select Estado -->
                 <label for="uf">Estado</label>
                 <select class="form-control"name="uf" id="uf" onchange="show_cidades(this.value);">
-                    <option value="0">--SELECIONE--</option>
+                    <option value="0" selected disabled>--SELECIONE--</option>
                     <?php foreach($ufs as $uf): ?>
                         <option value="<?=$uf->getId();?>">
                             <?=$uf->getNome();?>
@@ -31,8 +36,13 @@
             </div>
             <div class="col-12 form-group" id="div_cidade"><!--Select Cidade -->
             <label for="cidade">Cidade</label>
-                <select class="form-control" name="cidade" id="cidade">
-                    <option value="0">--SELECIONE--</option>
+                <select class="form-control" name="cidade" id="cidade" onchange="show_bairros(this.value);">
+                    <option value="0" selected disabled>--SELECIONE--</option>
+                    <?php foreach($cidades as $cidade): ?>
+                        <option value="<?=$cidade->getId();?>">
+                            <?=$cidade->getNome();?>
+                        </option>
+                    <?php endforeach; ?>
                 </select>
             </div>
             <div class="col-12 form-group" id="div_bairro"><!--Select Bairro -->
