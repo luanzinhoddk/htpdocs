@@ -9,7 +9,7 @@ $ufs = $dao->findAll();
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Exemplo Ajax</title>
+        <title>Ajax</title>
         <link rel="stylesheet" href="assets/css/bootstrap.css">
     </head>
     <body>
