@@ -5,7 +5,6 @@ require_once(__DIR__ . "/./UnidadeFederativa.class.php");
 require_once(__DIR__ . "/./Cidade.class.php");
 require_once(__DIR__ . "/./Bairro.class.php");
 
-
 class Cliente {
 
     private $id;
@@ -22,6 +21,10 @@ class Cliente {
     private $observacao;
     private $email;
 
+    public function __construct() {
+        $this->sexo = new Sexo();
+    }
+
     public function getId(){
         return $this->id;
     }
@@ -35,7 +38,7 @@ class Cliente {
     }
 
     public function setNome($nome){
-        $this->nome = $nome;
+        $this->nome = strtoupper($nome);
     }
 
     public function getSobrenome(){
@@ -43,7 +46,7 @@ class Cliente {
     }
 
     public function setSobrenome($sobrenome){
-        $this->sobrenome = $sobrenome;
+        $this->sobrenome = strtoupper($sobrenome);
     }
 
     public function getData(){
@@ -58,7 +61,7 @@ class Cliente {
         return $this->sexo;
     }
 
-    public function setSexo(Sexo $sexo){
+    public function setSexo($sexo){
         $this->sexo = $sexo;
     }
 
@@ -68,6 +71,21 @@ class Cliente {
 
     public function setCpf($cpf){
         $this->cpf = $cpf;
+        $cpf = preg_replace('/[^0-9]/', '', (string) $cpf);
+        // Valida tamanho
+        if (strlen($cpf) != 11)
+            return false;
+        // Calcula e confere primeiro dígito verificador
+        for ($i = 0, $j = 10, $soma = 0; $i < 9; $i++, $j--)
+            $soma += $cpf{$i} * $j;
+        $resto = $soma % 11;
+        if ($cpf{9} != ($resto < 2 ? 0 : 11 - $resto))
+            return false;
+        // Calcula e confere segundo dígito verificador
+        for ($i = 0, $j = 11, $soma = 0; $i < 10; $i++, $j--)
+            $soma += $cpf{$i} * $j;
+        $resto = $soma % 11;
+        return $cpf{10} == ($resto < 2 ? 0 : 11 - $resto);
     }
 
     public function getCep(){
@@ -90,7 +108,7 @@ class Cliente {
         return $this->cidade;
     }
 
-    public function setCidade(Cidade $cidade){
+    public function setCidade($cidade){
         $this->cidade = $cidade;
     }
 
@@ -98,7 +116,7 @@ class Cliente {
         return $this->bairro;
     }
 
-    public function setBairro(Bairro $bairro){
+    public function setBairro($bairro){
         $this->bairro = $bairro;
     }
 
