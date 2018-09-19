@@ -72,7 +72,7 @@ class ClienteDAO {
     }
     
     public function save(Cliente $cliente) {
-        if (empty($cliente->getId()) && ($_GET['id'] != "")) {
+        if (empty($cliente->getId()) && !isset($_GET['id'] != "")) {
             return $this->insert($cliente);
         } else {
             return $this->update($cliente);
