@@ -71,15 +71,15 @@ $clientes = $clienteDAO->findAll();
        <td><?=$cliente->getCidade()->getNome();?></td>
        <td><?=$cliente->getUnidadeFederativa()->getSigla();?></td>
       <td>
-          <form method="get" id="editar">
+          <form method="get" id="editar" action="../cadastro/index.php">
             <input type="hidden" name="id" value="<?=$cliente->getId();?>">
-            <button type="submit" class="btn btn-sm btn-success" name="editar" value="editar" ><i class="fas fa-edit"></i></button>
+            <button type="submit" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></button>
           </form>
       </td>
       <td>
         <form method="post" id="form-remover">
           <input type="hidden" name="id" value="<?=$cliente->getId();?>">
-          <button type="submit" class="btn btn-sm btn-danger" name="remover" value="remover"><i class="fas fa-trash-alt"></i></button>
+          <button type="submit" class="btn btn-sm btn-danger" name="remover" value="remover" onclick="return confirmaRemover();" ><i class="fas fa-trash-alt"></i></button>
         </form>
       </td>
     </tr>
@@ -90,4 +90,5 @@ $clientes = $clienteDAO->findAll();
 </div>
 </div>
 </body>
+<script src="../assets/js/cadastro.js"></script>
 </html>

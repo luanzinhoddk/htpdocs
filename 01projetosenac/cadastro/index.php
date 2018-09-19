@@ -14,9 +14,12 @@ $cliente = new Cliente();
 $clienteDAO = new ClienteDAO();
 $sexoDAO = new SexoDAO();
 
+if (isset($_GET['id'])) {
+  $cliente = $clienteDAO->findById($_GET['id']);
+}
 
 if (isset($_POST['salvar']) && $_POST['salvar'] == 'salvar') {
-  $cliente->setId($_POST['id']);
+  //$cliente->setId($_POST['id']);
   $cliente->setNome($_POST['nome']);
   $cliente->setSobrenome($_POST['sobrenome']);
   $cliente->setData($_POST['nascimento']);
@@ -27,23 +30,38 @@ if (isset($_POST['salvar']) && $_POST['salvar'] == 'salvar') {
   $cliente->setObservacao($_POST['observacao']);
   $cliente->setBairro($_POST['bairro']);
   $cliente->setEmail($_POST['email']);
-
-  $clienteDAO->save($cliente);
-  //var_dump($cliente);
-  if ($cliente->getId() == 0) {
-     $cliente->setId(null);
-  }
   if ($_POST['id'] != '') {
-      $cliente->setId($_POST['ID']);
+    $cliente->setId($_POST['ID']);
   }
+  $clienteDAO->save($cliente);
 
-  header('location: index.php');
-}else{
+  header('location: ../listar/index.php');
+  }else{
+    if(isset($_GET['id']) && isset($_POST['salvar'])){
+        $cliente->setId($_POST['id']);
+        $cliente->setNome($_POST['nome']);
+        $cliente->setSobrenome($_POST['sobrenome']);
+        $cliente->setData($_POST['nascimento']);
+        $cliente->setCpf($_POST['cpf']);
+        $cliente->setSexo($_POST['sexo']);
+        $cliente->setCep($_POST['cep']);
+        $cliente->setLogradouro($_POST['logradouro']);
+        $cliente->setObservacao($_POST['observacao']);
+        $cliente->setBairro($_POST['bairro']);
+        $cliente->setEmail($_POST['email']);
 
+        if ($cliente->getId() == 0) {
+            $cliente->setId(null);
+        }
+        if ($_POST['id'] != '') {
+            $cliente->setId($_POST['ID']);
+        }
+        $clienteDAO->save($cliente);
+        header('location: ../listar/index.php');
+    }
 }
 $ufdao = new UnidadeFederativaDAO();
 $ufs = $ufdao->findAll();
-
 
 ?>
 <!DOCTYPE html>
@@ -73,7 +91,7 @@ $ufs = $ufdao->findAll();
 </nav>
 <div class="container"> <!--Início do container-->
 <div class="row" style="margin-top: 50px;">
-<form method="post" action="index.php"><!--Incio do Formulario-->
+<form method="post" action="index.php<?php if(isset($_GET['id'])){ echo "?id=".$cliente->getId();} ?>"><!--Incio do Formulario-->
 <input type="hidden" name="id" value="<?=$cliente->getId();?>">
 <div class="form-group"><legend>Cliente</legend>
     <div class="form-group">
@@ -148,7 +166,7 @@ $ufs = $ufdao->findAll();
     </div>
     </div>
      <div class="form-group"><!--Butões-->
-    <input type="submit" class="btn btn-primary" name="salvar" value="salvar">
+    <input type="submit" class="btn btn-primary" name="salvar" value="salvar" onclick="return confirmaSalvar();"> 
     <input type="submit" class="btn btn-danger" name="limpar" value="limpar">
 </div>
 </form><!--Fim do Formulario-->
