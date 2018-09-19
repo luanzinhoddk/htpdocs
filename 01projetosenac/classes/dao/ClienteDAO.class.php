@@ -43,8 +43,6 @@ class ClienteDAO {
             $statement->bindParam(':bairro', $bairro);
             $statement->bindParam(':email', $email);
 
-
-            
             $statement->execute();
             return $this->findById($this->conexao->lastInsertId());
         } catch(PDOException $e) {
@@ -74,7 +72,7 @@ class ClienteDAO {
     }
     
     public function save(Cliente $cliente) {
-        if (is_null($cliente->getId())) {
+        if (empty($cliente->getId()) && ($_GET['id'] != "")) {
             return $this->insert($cliente);
         } else {
             return $this->update($cliente);
